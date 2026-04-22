@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="touchshell">
+  <schema id="org.gnome.shell.extensions.touchshell"
+          path="/org/gnome/shell/extensions/touchshell/">
+
+    <key name="enable-top-right-swipe" type="b">
+      <default>true</default>
+      <summary>Enable top-right swipe</summary>
+      <description>
+        If true, a swipe-down gesture starting in the top-right edge of the
+        screen opens the Quick Settings menu.
+      </description>
+    </key>
+
+    <key name="top-right-zone-width-percent" type="i">
+      <default>15</default>
+      <range min="5" max="50"/>
+      <summary>Top-right trigger zone width</summary>
+      <description>
+        Percentage of screen width, measured from the right edge, that counts
+        as the trigger zone for the top-right swipe gesture.
+      </description>
+    </key>
+
+  </schema>
+</schemalist>
