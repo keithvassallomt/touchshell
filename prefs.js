@@ -22,6 +22,24 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 
         page.add(this._buildLegendGroup());
         page.add(this._buildTopRightSwipeGroup(settings));
+        page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildPanelAutoHideGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Panel auto-hide',
+            description:
+                'Hide the top panel when a window is maximized. Move the pointer to the ' +
+                'top edge of the screen (or swipe from the top-right) to reveal it.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'panel-auto-hide-activation',
+            'Activation'
+        ));
+
+        return group;
     }
 
     // Static description of what "Off / Auto / Always" mean. Lives at the

@@ -32,5 +32,18 @@
       </description>
     </key>
 
+    <key name="panel-auto-hide-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'auto'</default>
+      <summary>When to auto-hide the top panel</summary>
+      <description>
+        Controls whether the top panel auto-hides when a window is maximized.
+        "off" keeps the panel always visible. "auto" auto-hides only when the
+        system is in tablet mode. "always" auto-hides in both laptop and
+        tablet modes. The panel reveals on top-edge hover and during panel
+        menu interactions.
+      </description>
+    </key>
+
   </schema>
 </schemalist>
