@@ -13,7 +13,7 @@
     </key>
 
     <key name="top-right-zone-width-percent" type="i">
-      <default>15</default>
+      <default>33</default>
       <range min="5" max="50"/>
       <summary>Top-right trigger zone width</summary>
       <description>

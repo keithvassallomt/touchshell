@@ -17,6 +17,7 @@ gnome-extensions pack \
     --out-dir="$OUT" \
     --extra-source=LICENSE \
     --extra-source=README.md \
+    --extra-source=lib \
     .
 
 ZIP="$OUT/$UUID.shell-extension.zip"
