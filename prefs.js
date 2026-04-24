@@ -4,32 +4,48 @@ import Gtk from 'gi://Gtk';
 
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+const ACTIVATION_OPTIONS = [
+    { name: 'off', label: 'Off' },
+    { name: 'auto', label: 'Auto' },
+    { name: 'always', label: 'Always' },
+];
+
 export default class TouchshellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         const settings = this.getSettings();
 
         const page = new Adw.PreferencesPage({
-            title: 'General',
-            icon_name: 'preferences-system-symbolic',
+            title: 'Gestures',
+            icon_name: 'input-touchpad-symbolic',
         });
         window.add(page);
 
+        page.add(this._buildLegendGroup());
+        page.add(this._buildTopRightSwipeGroup(settings));
+    }
+
+    // Static description of what "Off / Auto / Always" mean. Lives at the
+    // top of the page so users only have to read it once.
+    _buildLegendGroup() {
+        return new Adw.PreferencesGroup({
+            description:
+                'Each gesture can be set to Off, Auto, or Always. ' +
+                'Auto means the gesture is only active when the system is in tablet mode ' +
+                '(e.g. a convertible laptop folded into tablet posture).',
+        });
+    }
+
+    _buildTopRightSwipeGroup(settings) {
         const group = new Adw.PreferencesGroup({
             title: 'Top-right swipe → Quick Settings',
             description: 'Swipe down from the top-right edge to open the Quick Settings menu.',
         });
-        page.add(group);
 
-        const enableRow = new Adw.SwitchRow({
-            title: 'Enable top-right swipe',
-        });
-        group.add(enableRow);
-        settings.bind(
-            'enable-top-right-swipe',
-            enableRow,
-            'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
+        group.add(this._buildActivationRow(
+            settings,
+            'top-right-swipe-activation',
+            'Activation'
+        ));
 
         const zoneRow = new Adw.SpinRow({
             title: 'Trigger zone width',
@@ -48,5 +64,38 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             'value',
             Gio.SettingsBindFlags.DEFAULT
         );
+
+        return group;
+    }
+
+    // AdwActionRow with an AdwToggleGroup suffix bound to a string-enum GSettings key.
+    _buildActivationRow(settings, key, title) {
+        const row = new Adw.ActionRow({ title });
+        const toggleGroup = new Adw.ToggleGroup({ valign: Gtk.Align.CENTER });
+
+        for (const opt of ACTIVATION_OPTIONS) {
+            const t = new Adw.Toggle({ name: opt.name, label: opt.label });
+            toggleGroup.add(t);
+        }
+
+        toggleGroup.set_active_name(settings.get_string(key));
+
+        const settingsId = settings.connect(`changed::${key}`, () => {
+            const v = settings.get_string(key);
+            if (toggleGroup.get_active_name() !== v)
+                toggleGroup.set_active_name(v);
+        });
+        const groupId = toggleGroup.connect('notify::active-name', () => {
+            const v = toggleGroup.get_active_name();
+            if (v && settings.get_string(key) !== v)
+                settings.set_string(key, v);
+        });
+        row.connect('destroy', () => {
+            settings.disconnect(settingsId);
+            toggleGroup.disconnect(groupId);
+        });
+
+        row.add_suffix(toggleGroup);
+        return row;
     }
 }

@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="touchshell">
+
+  <enum id="org.gnome.shell.extensions.touchshell.activation">
+    <value nick="off" value="0"/>
+    <value nick="auto" value="1"/>
+    <value nick="always" value="2"/>
+  </enum>
+
   <schema id="org.gnome.shell.extensions.touchshell"
           path="/org/gnome/shell/extensions/touchshell/">
 
-    <key name="enable-top-right-swipe" type="b">
-      <default>true</default>
-      <summary>Enable top-right swipe</summary>
+    <key name="top-right-swipe-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable the top-right swipe gesture</summary>
       <description>
-        If true, a swipe-down gesture starting in the top-right edge of the
-        screen opens the Quick Settings menu.
+        Controls whether the top-right swipe → Quick Settings gesture is
+        active. "off" disables it entirely. "auto" enables it only when
+        the system reports tablet mode (e.g. a convertible folded into
+        tablet posture). "always" enables it regardless of mode.
       </description>
     </key>
 
