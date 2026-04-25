@@ -79,5 +79,17 @@
       </description>
     </key>
 
+    <key name="flick-to-close-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable flick-to-close in the Activities overview</summary>
+      <description>
+        Controls whether flicking upward on a window preview in the
+        Activities overview closes that window. "off" disables it entirely.
+        "auto" enables it only when the system reports tablet mode.
+        "always" enables it regardless of mode.
+      </description>
+    </key>
+
   </schema>
 </schemalist>

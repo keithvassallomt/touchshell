@@ -24,7 +24,23 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildTopRightSwipeGroup(settings));
         page.add(this._buildTopCenterSwipeGroup(settings));
         page.add(this._buildBottomEdgeSwipeGroup(settings));
+        page.add(this._buildFlickToCloseGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildFlickToCloseGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Flick to close (in Activities overview)',
+            description: 'Flick a window thumbnail upward in the Activities overview to close that window.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'flick-to-close-activation',
+            'Activation'
+        ));
+
+        return group;
     }
 
     _buildTopCenterSwipeGroup(settings) {

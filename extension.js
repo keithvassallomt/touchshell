@@ -1,6 +1,7 @@
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
+import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
 import { PanelAutoHide } from './lib/panelAutoHide.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
@@ -25,9 +26,15 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
+        this._flickToClose = new FlickToCloseGesture(
+            this._settings,
+            this._tabletMode
+        );
     }
 
     disable() {
+        this._flickToClose?.destroy();
+        this._flickToClose = null;
         this._bottomEdgeSwipe?.destroy();
         this._bottomEdgeSwipe = null;
         this._topCenterSwipe?.destroy();
