@@ -25,7 +25,25 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildTopCenterSwipeGroup(settings));
         page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildFlickToCloseGroup(settings));
+        page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildOverviewWorkspaceSwitchGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Workspace switch (in Activities overview)',
+            description:
+                'Single-finger horizontal swipe over the overview background switches workspaces, ' +
+                'tracking the finger 1:1.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'overview-workspace-switch-activation',
+            'Activation'
+        ));
+
+        return group;
     }
 
     _buildFlickToCloseGroup(settings) {

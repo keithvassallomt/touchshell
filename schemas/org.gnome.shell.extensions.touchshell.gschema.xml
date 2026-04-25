@@ -91,5 +91,18 @@
       </description>
     </key>
 
+    <key name="overview-workspace-switch-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable single-finger workspace switching in the overview</summary>
+      <description>
+        Controls whether a single-finger horizontal swipe over the overview
+        background switches workspaces, tracking the finger 1:1 like the
+        native four-finger touchpad swipe. "off" disables it entirely.
+        "auto" enables it only when the system reports tablet mode.
+        "always" enables it regardless of mode.
+      </description>
+    </key>
+
   </schema>
 </schemalist>
