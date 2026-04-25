@@ -117,5 +117,22 @@
       </description>
     </key>
 
+    <key name="auto-maximize-windows-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'auto'</default>
+      <summary>When to enable Fullscreen Apps mode</summary>
+      <description>
+        Controls whether newly-created normal windows open maximized by
+        default (dialogs, popups and child windows excluded), and
+        whether a two-finger downward swipe inside a maximized window
+        un-maximizes it. Both behaviors share this single key — the
+        swipe is the escape hatch for the auto-maximize behavior.
+        "off" disables both. "auto" enables them only when the system
+        reports tablet mode. "always" enables them regardless of mode.
+        The Quick Settings tile flips between "off" and "always";
+        "auto" can only be set via this prefs UI.
+      </description>
+    </key>
+
   </schema>
 </schemalist>

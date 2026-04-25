@@ -1,13 +1,16 @@
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+import { AutoMaximizeWindows } from './lib/autoMaximizeWindows.js';
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
 import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
 import { OverviewVerticalSwipeGesture } from './lib/overviewVerticalSwipeGesture.js';
 import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGesture.js';
 import { PanelAutoHide } from './lib/panelAutoHide.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
+import { TabletModeQuickToggle } from './lib/tabletModeQuickToggle.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
+import { TwoFingerUnmaximize } from './lib/twoFingerUnmaximize.js';
 
 export default class TouchshellExtension extends Extension {
     enable() {
@@ -40,9 +43,24 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
+        this._autoMaximize = new AutoMaximizeWindows(
+            this._settings,
+            this._tabletMode
+        );
+        this._unmaxSwipe = new TwoFingerUnmaximize(
+            this._settings,
+            this._tabletMode
+        );
+        this._tabletQuickToggle = new TabletModeQuickToggle(this._settings);
     }
 
     disable() {
+        this._tabletQuickToggle?.destroy();
+        this._tabletQuickToggle = null;
+        this._unmaxSwipe?.destroy();
+        this._unmaxSwipe = null;
+        this._autoMaximize?.destroy();
+        this._autoMaximize = null;
         this._overviewVerticalSwipe?.destroy();
         this._overviewVerticalSwipe = null;
         this._overviewWsSwitch?.destroy();

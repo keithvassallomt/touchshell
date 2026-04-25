@@ -27,7 +27,27 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildFlickToCloseGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
+        page.add(this._buildFullscreenAppsGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildFullscreenAppsGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Fullscreen Apps (iPad-style)',
+            description:
+                'Open new normal windows maximized by default (dialogs, popups and child windows are excluded). ' +
+                'A two-finger downward swipe inside a maximized window restores it to its previous size — that’s ' +
+                'the escape hatch, so it shares this toggle. Fullscreen videos/games are not affected. ' +
+                'A Quick Settings tile lets you flip between Off and Always without coming here.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'auto-maximize-windows-activation',
+            'Activation'
+        ));
+
+        return group;
     }
 
     _buildOverviewWorkspaceSwitchGroup(settings) {
