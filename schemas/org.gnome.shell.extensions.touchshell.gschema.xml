@@ -45,5 +45,17 @@
       </description>
     </key>
 
+    <key name="bottom-edge-swipe-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable the bottom-edge swipe gesture</summary>
+      <description>
+        Controls whether swiping up from the bottom edge of the screen opens
+        the Activities overview. "off" disables it entirely. "auto" enables
+        it only when the system reports tablet mode. "always" enables it
+        regardless of mode.
+      </description>
+    </key>
+
   </schema>
 </schemalist>

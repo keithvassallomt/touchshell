@@ -22,7 +22,23 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 
         page.add(this._buildLegendGroup());
         page.add(this._buildTopRightSwipeGroup(settings));
+        page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildBottomEdgeSwipeGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Bottom-edge swipe → Overview',
+            description: 'Swipe up from the bottom edge of the screen to open the Activities overview.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'bottom-edge-swipe-activation',
+            'Activation'
+        ));
+
+        return group;
     }
 
     _buildPanelAutoHideGroup(settings) {
