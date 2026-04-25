@@ -3,6 +3,7 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
 import { PanelAutoHide } from './lib/panelAutoHide.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
+import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
 
 export default class TouchshellExtension extends Extension {
@@ -11,6 +12,11 @@ export default class TouchshellExtension extends Extension {
         this._tabletMode = new TabletModeMonitor();
         this._panelAutoHide = new PanelAutoHide(this._settings, this._tabletMode);
         this._topRightSwipe = new TopRightSwipeGesture(
+            this._settings,
+            this._tabletMode,
+            this._panelAutoHide
+        );
+        this._topCenterSwipe = new TopCenterSwipeGesture(
             this._settings,
             this._tabletMode,
             this._panelAutoHide
@@ -24,6 +30,8 @@ export default class TouchshellExtension extends Extension {
     disable() {
         this._bottomEdgeSwipe?.destroy();
         this._bottomEdgeSwipe = null;
+        this._topCenterSwipe?.destroy();
+        this._topCenterSwipe = null;
         this._topRightSwipe?.destroy();
         this._topRightSwipe = null;
         this._panelAutoHide?.destroy();

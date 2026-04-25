@@ -57,5 +57,27 @@
       </description>
     </key>
 
+    <key name="top-center-swipe-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable the top-center swipe gesture</summary>
+      <description>
+        Controls whether swiping down from the top-center edge of the screen
+        opens the date menu (notifications and calendar). "off" disables it
+        entirely. "auto" enables it only when the system reports tablet mode.
+        "always" enables it regardless of mode.
+      </description>
+    </key>
+
+    <key name="top-center-zone-width-percent" type="i">
+      <default>30</default>
+      <range min="10" max="60"/>
+      <summary>Width of the top-center trigger zone</summary>
+      <description>
+        Percentage of the monitor width, centered horizontally, that counts
+        as the top-center trigger zone for the notifications swipe gesture.
+      </description>
+    </key>
+
   </schema>
 </schemalist>

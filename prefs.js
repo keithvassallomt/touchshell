@@ -22,8 +22,42 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 
         page.add(this._buildLegendGroup());
         page.add(this._buildTopRightSwipeGroup(settings));
+        page.add(this._buildTopCenterSwipeGroup(settings));
         page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+    }
+
+    _buildTopCenterSwipeGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Top-center swipe → Notifications',
+            description: 'Swipe down from the top-center of the screen to open the date menu (notifications and calendar).',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'top-center-swipe-activation',
+            'Activation'
+        ));
+
+        const zoneRow = new Adw.SpinRow({
+            title: 'Trigger zone width',
+            subtitle: 'Percentage of screen width, centered horizontally.',
+            adjustment: new Gtk.Adjustment({
+                lower: 10,
+                upper: 60,
+                step_increment: 1,
+                page_increment: 5,
+            }),
+        });
+        group.add(zoneRow);
+        settings.bind(
+            'top-center-zone-width-percent',
+            zoneRow,
+            'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+
+        return group;
     }
 
     _buildBottomEdgeSwipeGroup(settings) {
