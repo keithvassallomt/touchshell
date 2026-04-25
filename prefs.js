@@ -26,6 +26,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildFlickToCloseGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
+        page.add(this._buildOverviewVerticalSwipeGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
     }
 
@@ -40,6 +41,23 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         group.add(this._buildActivationRow(
             settings,
             'overview-workspace-switch-activation',
+            'Activation'
+        ));
+
+        return group;
+    }
+
+    _buildOverviewVerticalSwipeGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Vertical swipe (in Activities overview)',
+            description:
+                'Single-finger vertical swipe over the overview background. Swipe up to reveal the ' +
+                'app grid; swipe down to return to the windows view or to the desktop.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'overview-vertical-swipe-activation',
             'Activation'
         ));
 

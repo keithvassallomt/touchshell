@@ -104,5 +104,18 @@
       </description>
     </key>
 
+    <key name="overview-vertical-swipe-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable vertical swipe between overview states</summary>
+      <description>
+        Controls whether a single-finger vertical swipe over the overview
+        background moves between overview states: swipe up reveals the app
+        grid, swipe down returns to the windows view or to the desktop.
+        "off" disables it entirely. "auto" enables it only when the system
+        reports tablet mode. "always" enables it regardless of mode.
+      </description>
+    </key>
+
   </schema>
 </schemalist>
