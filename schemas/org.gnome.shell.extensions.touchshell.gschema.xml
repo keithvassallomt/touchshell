@@ -117,6 +117,19 @@
       </description>
     </key>
 
+    <key name="swipe-to-dismiss-notifications-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable swipe-to-dismiss on notifications</summary>
+      <description>
+        Controls two related gestures: a single-finger upward swipe on
+        a visible notification banner dismisses it; a leftward swipe
+        on a notification in the date-menu list dismisses it. "off"
+        disables both. "auto" enables them only when the system
+        reports tablet mode. "always" enables them regardless of mode.
+      </description>
+    </key>
+
     <key name="auto-maximize-windows-activation"
          enum="org.gnome.shell.extensions.touchshell.activation">
       <default>'auto'</default>

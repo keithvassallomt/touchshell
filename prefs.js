@@ -25,6 +25,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildTopCenterSwipeGroup(settings));
         page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildFlickToCloseGroup(settings));
+        page.add(this._buildSwipeToDismissNotificationsGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
         page.add(this._buildFullscreenAppsGroup(settings));
@@ -78,6 +79,24 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         group.add(this._buildActivationRow(
             settings,
             'overview-vertical-swipe-activation',
+            'Activation'
+        ));
+
+        return group;
+    }
+
+    _buildSwipeToDismissNotificationsGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Swipe to dismiss notifications',
+            description:
+                'Swipe up on a notification banner, or swipe a notification in the ' +
+                'date-menu list to the left, to dismiss it. (List uses left rather ' +
+                'than up because up/down scrolls the list.)',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'swipe-to-dismiss-notifications-activation',
             'Activation'
         ));
 

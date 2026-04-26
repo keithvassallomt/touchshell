@@ -6,6 +6,7 @@ import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
 import { OverviewVerticalSwipeGesture } from './lib/overviewVerticalSwipeGesture.js';
 import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGesture.js';
 import { PanelAutoHide } from './lib/panelAutoHide.js';
+import { SwipeToDismissNotifications } from './lib/swipeToDismissNotifications.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
 import { TabletModeQuickToggle } from './lib/tabletModeQuickToggle.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
@@ -52,9 +53,15 @@ export default class TouchshellExtension extends Extension {
             this._tabletMode
         );
         this._tabletQuickToggle = new TabletModeQuickToggle(this._settings);
+        this._swipeDismissNotifs = new SwipeToDismissNotifications(
+            this._settings,
+            this._tabletMode
+        );
     }
 
     disable() {
+        this._swipeDismissNotifs?.destroy();
+        this._swipeDismissNotifs = null;
         this._tabletQuickToggle?.destroy();
         this._tabletQuickToggle = null;
         this._unmaxSwipe?.destroy();
