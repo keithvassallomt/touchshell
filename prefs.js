@@ -27,6 +27,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildFlickToCloseGroup(settings));
         page.add(this._buildSwipeToDismissNotificationsGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
+        page.add(this._buildDesktopWorkspaceSwipeGroup(settings));
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
         page.add(this._buildFullscreenAppsGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
@@ -62,6 +63,24 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         group.add(this._buildActivationRow(
             settings,
             'overview-workspace-switch-activation',
+            'Activation'
+        ));
+
+        return group;
+    }
+
+    _buildDesktopWorkspaceSwipeGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Desktop swipe → switch workspace',
+            description:
+                'Single-finger horizontal swipe on a visible patch of desktop ' +
+                'background switches workspaces with a 1:1 animation. Works ' +
+                'on an empty desktop or in the empty area between/around windows.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'desktop-workspace-switch-activation',
             'Activation'
         ));
 

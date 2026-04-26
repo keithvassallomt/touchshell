@@ -2,6 +2,7 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 import { AutoMaximizeWindows } from './lib/autoMaximizeWindows.js';
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
+import { DesktopWorkspaceSwipeGesture } from './lib/desktopWorkspaceSwipeGesture.js';
 import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
 import { OverviewVerticalSwipeGesture } from './lib/overviewVerticalSwipeGesture.js';
 import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGesture.js';
@@ -40,6 +41,10 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
+        this._desktopWsSwipe = new DesktopWorkspaceSwipeGesture(
+            this._settings,
+            this._tabletMode
+        );
         this._overviewVerticalSwipe = new OverviewVerticalSwipeGesture(
             this._settings,
             this._tabletMode
@@ -70,6 +75,8 @@ export default class TouchshellExtension extends Extension {
         this._autoMaximize = null;
         this._overviewVerticalSwipe?.destroy();
         this._overviewVerticalSwipe = null;
+        this._desktopWsSwipe?.destroy();
+        this._desktopWsSwipe = null;
         this._overviewWsSwitch?.destroy();
         this._overviewWsSwitch = null;
         this._flickToClose?.destroy();

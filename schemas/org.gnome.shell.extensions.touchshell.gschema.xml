@@ -130,6 +130,20 @@
       </description>
     </key>
 
+    <key name="desktop-workspace-switch-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable single-finger horizontal swipe on the desktop to switch workspaces</summary>
+      <description>
+        Controls whether a single-finger horizontal swipe on the desktop
+        switches workspaces with a 1:1 finger-tracked animation. The swipe
+        is recognized on any visible patch of desktop background — empty
+        desktop, or empty area between/around windows. "off" disables it
+        entirely. "auto" enables it only when the system reports tablet
+        mode. "always" enables it regardless of mode.
+      </description>
+    </key>
+
     <key name="auto-maximize-windows-activation"
          enum="org.gnome.shell.extensions.touchshell.activation">
       <default>'auto'</default>
