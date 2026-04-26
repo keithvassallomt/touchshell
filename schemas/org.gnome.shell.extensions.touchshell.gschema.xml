@@ -161,5 +161,41 @@
       </description>
     </key>
 
+    <key name="auto-maximize-exceptions" type="as">
+      <default>[]</default>
+      <summary>Apps that should not be auto-maximized</summary>
+      <description>
+        List of identifiers (desktop file IDs like
+        "org.gnome.Calculator.desktop", or raw WM_CLASS strings as a
+        fallback) for apps that should be exempted from Fullscreen Apps
+        mode. Their new windows open at the app's default size instead of
+        maximized.
+      </description>
+    </key>
+
+    <key name="auto-maximize-prompted-apps" type="as">
+      <default>[]</default>
+      <summary>Apps already prompted with the auto-maximize opt-out notification</summary>
+      <description>
+        Tracks which apps have already shown the one-shot "Don't
+        auto-maximize this app" notification. Once an app is in this
+        list it never prompts again, regardless of whether the user
+        acted on the notification.
+      </description>
+    </key>
+
+    <key name="auto-maximize-show-optout-notification" type="b">
+      <default>true</default>
+      <summary>Show the auto-maximize opt-out notification</summary>
+      <description>
+        When enabled (default), the first time an app is auto-maximized
+        a transient notification offers a one-tap opt-out. Disable this
+        if you find the prompts intrusive — exceptions can still be
+        managed via the prefs list. Resetting the notification history
+        re-enables prompts for previously-dismissed apps but only if
+        this master toggle is on.
+      </description>
+    </key>
+
   </schema>
 </schemalist>
