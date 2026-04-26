@@ -10,6 +10,7 @@ import { PanelAutoHide } from './lib/panelAutoHide.js';
 import { SwipeToDismissNotifications } from './lib/swipeToDismissNotifications.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
 import { TabletModeQuickToggle } from './lib/tabletModeQuickToggle.js';
+import { TextActionController } from './lib/textActionController.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
 import { TwoFingerUnmaximize } from './lib/twoFingerUnmaximize.js';
@@ -62,9 +63,15 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
+        this._textAction = new TextActionController(
+            this._settings,
+            this._tabletMode
+        );
     }
 
     disable() {
+        this._textAction?.destroy();
+        this._textAction = null;
         this._swipeDismissNotifs?.destroy();
         this._swipeDismissNotifs = null;
         this._tabletQuickToggle?.destroy();

@@ -184,6 +184,64 @@
       </description>
     </key>
 
+    <!-- TODO: remove text-selection-activation in next release. Kept
+         here only so TextActionController._migrateSchemaKey can copy
+         the prior value into text-action-fab-activation on first run
+         after the rename. -->
+    <key name="text-selection-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'auto'</default>
+      <summary>Deprecated; use text-action-fab-activation</summary>
+      <description>
+        Replaced by text-action-fab-activation. Kept for a one-shot
+        value migration on first run after the rename.
+      </description>
+    </key>
+
+    <key name="text-action-fab-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'auto'</default>
+      <summary>When to enable the touch text-action FAB</summary>
+      <description>
+        Controls the floating action button for touch text actions.
+        Tapping the FAB expands a Cut / Copy / Paste / Select All
+        bar; the buttons synthesise Ctrl+X / Ctrl+C / Ctrl+V / Ctrl+A
+        to the focused app. "off" disables the feature. "auto"
+        enables it only in tablet mode. "always" enables it
+        regardless of mode.
+      </description>
+    </key>
+
+    <key name="text-action-fab-show-button" type="b">
+      <default>true</default>
+      <summary>Always show the floating action button</summary>
+      <description>
+        When enabled (default), a translucent FAB is always visible
+        in the corner of the primary monitor; tap it to open the
+        Cut / Copy / Paste / Select All bar. When disabled, the FAB
+        is hidden and a two-finger tap anywhere on the screen
+        summons the bar directly.
+      </description>
+    </key>
+
+    <key name="text-action-fab-x" type="i">
+      <default>-1</default>
+      <summary>Persisted X position of the FAB</summary>
+      <description>
+        Last X coordinate (stage pixels) the user dragged the FAB to.
+        -1 means use the default bottom-right corner position.
+      </description>
+    </key>
+
+    <key name="text-action-fab-y" type="i">
+      <default>-1</default>
+      <summary>Persisted Y position of the FAB</summary>
+      <description>
+        Last Y coordinate (stage pixels) the user dragged the FAB to.
+        -1 means use the default bottom-right corner position.
+      </description>
+    </key>
+
     <key name="auto-maximize-show-optout-notification" type="b">
       <default>true</default>
       <summary>Show the auto-maximize opt-out notification</summary>

@@ -26,6 +26,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildBottomEdgeSwipeGroup(settings));
         page.add(this._buildFlickToCloseGroup(settings));
         page.add(this._buildSwipeToDismissNotificationsGroup(settings));
+        page.add(this._buildTextActionFabGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
         page.add(this._buildDesktopWorkspaceSwipeGroup(settings));
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
@@ -338,6 +339,41 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             'overview-vertical-swipe-activation',
             'Activation'
         ));
+
+        return group;
+    }
+
+    _buildTextActionFabGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Touch text-action FAB',
+            description:
+                'A floating button gives you Cut / Copy / Paste / Select All ' +
+                'on touch. The buttons fire the matching keyboard shortcut to ' +
+                'the focused app — there is no selection management on our ' +
+                'side. By default a translucent FAB sits in the bottom-right ' +
+                'corner; tap it to open the bar. If you turn the FAB off, ' +
+                'tap with two fingers anywhere to summon the bar instead.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'text-action-fab-activation',
+            'Activation'
+        ));
+
+        const showRow = new Adw.SwitchRow({
+            title: 'Always show the FAB',
+            subtitle:
+                'When off, hide the FAB and use a two-finger tap anywhere ' +
+                'to summon the action bar.',
+        });
+        settings.bind(
+            'text-action-fab-show-button',
+            showRow,
+            'active',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        group.add(showRow);
 
         return group;
     }
