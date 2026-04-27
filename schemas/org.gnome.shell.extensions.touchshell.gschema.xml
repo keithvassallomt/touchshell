@@ -257,6 +257,33 @@
       </description>
     </key>
 
+    <key name="action-bar-distance-percent" type="i">
+      <default>62</default>
+      <range min="30" max="100"/>
+      <summary>How far to swipe on the action bar for one workspace step</summary>
+      <description>
+        Percentage of monitor width that a one-workspace swipe covers
+        on the bottom action bar. Lower values mean less finger travel
+        is required to commit a workspace switch. The default (62)
+        matches a touchup-equivalent feel; values near 100 are close to
+        the native four-finger touchpad swipe (one workspace per full
+        screen width).
+      </description>
+    </key>
+
+    <key name="overview-distance-percent" type="i">
+      <default>60</default>
+      <range min="30" max="100"/>
+      <summary>How far to swipe to open or close the overview</summary>
+      <description>
+        Percentage of monitor height that one overview state step covers
+        for the bottom-edge → overview swipe and the vertical swipes
+        inside the overview (HIDDEN ↔ WINDOWS ↔ APPS). Lower values mean
+        less finger travel is required to commit a state change. The
+        default (60) matches a touchup-equivalent feel.
+      </description>
+    </key>
+
     <key name="action-bar-exceptions" type="as">
       <default>[]</default>
       <summary>Apps the action bar should be hidden for</summary>

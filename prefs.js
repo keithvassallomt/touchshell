@@ -55,6 +55,26 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             'Activation'
         ));
 
+        const distanceRow = new Adw.SpinRow({
+            title: 'Swipe distance',
+            subtitle:
+                'Percentage of screen width needed to commit one ' +
+                'workspace switch. Lower = snappier.',
+            adjustment: new Gtk.Adjustment({
+                lower: 30,
+                upper: 100,
+                step_increment: 1,
+                page_increment: 5,
+            }),
+        });
+        settings.bind(
+            'action-bar-distance-percent',
+            distanceRow,
+            'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        group.add(distanceRow);
+
         group.add(this._buildExceptionsExpander(
             settings,
             'action-bar-exceptions',
@@ -453,6 +473,27 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             'bottom-edge-swipe-activation',
             'Activation'
         ));
+
+        const distanceRow = new Adw.SpinRow({
+            title: 'Swipe distance',
+            subtitle:
+                'Percentage of screen height needed to commit one ' +
+                'overview state change. Lower = snappier. Also applies ' +
+                'to vertical swipes inside the overview.',
+            adjustment: new Gtk.Adjustment({
+                lower: 30,
+                upper: 100,
+                step_increment: 1,
+                page_increment: 5,
+            }),
+        });
+        settings.bind(
+            'overview-distance-percent',
+            distanceRow,
+            'value',
+            Gio.SettingsBindFlags.DEFAULT
+        );
+        group.add(distanceRow);
 
         return group;
     }
