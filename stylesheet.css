@@ -3,22 +3,20 @@
 /* Bottom action bar. The actor is purely visual (vfunc_pick is empty);
    the touch zone is enforced by the gesture's should-handle-sequence
    gate, not by this style. The bar always reserves 22 logical px of
-   work area at the bottom of the primary monitor; whether it draws
-   anything is controlled by the JS-managed --filled class.
+   work area at the bottom of the primary monitor.
 
-   --filled: a window is touching the top of the bar, so we paint with
-     the theme background colour (so it reads as part of the window's
-     surrounding chrome rather than exposing the desktop colour).
-   --theme-dark: switches the --filled background to the dark variant. */
+   The bar is a transparent container; an inner __bg actor carries the
+   theme-aware fill colour and is faded in/out via opacity from JS.
+   --theme-dark on __bg picks the dark variant. */
 .touchshell-actionbar {
     background-color: transparent;
 }
 
-.touchshell-actionbar.touchshell-actionbar--filled {
+.touchshell-actionbar__bg {
     background-color: #fafafa;
 }
 
-.touchshell-actionbar.touchshell-actionbar--filled.touchshell-actionbar--theme-dark {
+.touchshell-actionbar__bg.touchshell-actionbar--theme-dark {
     background-color: #1e1e1e;
 }
 
