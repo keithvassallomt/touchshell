@@ -32,6 +32,38 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
         page.add(this._buildFullscreenAppsGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
+        page.add(this._buildActionBarGroup(settings));
+    }
+
+    _buildActionBarGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Bottom action bar',
+            description:
+                'A thin strip pinned to the bottom of the primary monitor. ' +
+                'Swipe left/right inside it to switch workspaces — including ' +
+                'over fullscreen apps where no other workspace-switch path is ' +
+                'reachable. The bar reserves 22 pixels at the bottom of the ' +
+                'work area; its background is transparent over the desktop ' +
+                'and fills with the theme colour when a window is touching ' +
+                'it. The pill fades in fullscreen but the touch zone stays ' +
+                'live; taps pass through to whatever is underneath.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'action-bar-activation',
+            'Activation'
+        ));
+
+        group.add(this._buildExceptionsExpander(
+            settings,
+            'action-bar-exceptions',
+            'Hide the bar for',
+            'These apps suppress the bar entirely when focused — useful ' +
+            'for games, presentations, anywhere an accidental swipe is bad.'
+        ));
+
+        return group;
     }
 
     _buildFullscreenAppsGroup(settings) {
@@ -50,16 +82,18 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             'Activation'
         ));
 
-        group.add(this._buildExceptionsExpander(settings));
+        group.add(this._buildExceptionsExpander(
+            settings,
+            'auto-maximize-exceptions',
+            'Excluded apps',
+            'These apps open at their default size, not maximized.'
+        ));
 
         return group;
     }
 
-    _buildExceptionsExpander(settings) {
-        const expander = new Adw.ExpanderRow({
-            title: 'Excluded apps',
-            subtitle: 'These apps open at their default size, not maximized.',
-        });
+    _buildExceptionsExpander(settings, key, title, subtitle) {
+        const expander = new Adw.ExpanderRow({ title, subtitle });
 
         // Footer row with the two add buttons. Stays at the bottom by
         // being re-added last each time the dynamic list is rebuilt.
@@ -69,14 +103,14 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             valign: Gtk.Align.CENTER,
         });
         addAppButton.connect('clicked', () => {
-            this._openAppPickerDialog(settings, addAppButton);
+            this._openAppPickerDialog(settings, key, addAppButton);
         });
         const addClassButton = new Gtk.Button({
             label: 'Add by WM_CLASS',
             valign: Gtk.Align.CENTER,
         });
         addClassButton.connect('clicked', () => {
-            this._openWmClassDialog(settings, addClassButton);
+            this._openWmClassDialog(settings, key, addClassButton);
         });
         footer.add_suffix(addAppButton);
         footer.add_suffix(addClassButton);
@@ -93,24 +127,23 @@ export default class TouchshellPreferences extends ExtensionPreferences {
                 expander.remove(footer);
             } catch (_) { /* not yet added on first run */ }
 
-            const exceptions = settings.get_strv('auto-maximize-exceptions');
+            const exceptions = settings.get_strv(key);
             for (const id of exceptions) {
-                const row = this._buildExceptionRow(settings, id);
+                const row = this._buildExceptionRow(settings, key, id);
                 expander.add_row(row);
                 dynamicRows.push(row);
             }
             expander.add_row(footer);
         };
 
-        const changedId = settings.connect(
-            'changed::auto-maximize-exceptions', refresh);
+        const changedId = settings.connect(`changed::${key}`, refresh);
         expander.connect('destroy', () => settings.disconnect(changedId));
         refresh();
 
         return expander;
     }
 
-    _buildExceptionRow(settings, id) {
+    _buildExceptionRow(settings, key, id) {
         const info = this._appInfoFor(id);
         const row = new Adw.ActionRow({
             title: info.name,
@@ -128,9 +161,8 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         });
         removeButton.add_css_class('flat');
         removeButton.connect('clicked', () => {
-            const cur = settings.get_strv('auto-maximize-exceptions');
-            settings.set_strv(
-                'auto-maximize-exceptions', cur.filter(x => x !== id));
+            const cur = settings.get_strv(key);
+            settings.set_strv(key, cur.filter(x => x !== id));
         });
         row.add_suffix(removeButton);
         return row;
@@ -157,7 +189,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         };
     }
 
-    _openAppPickerDialog(settings, parent) {
+    _openAppPickerDialog(settings, key, parent) {
         const root = parent.get_root();
         const dialog = new Adw.Dialog({
             title: 'Add app exception',
@@ -174,7 +206,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         listBox.set_margin_start(12);
         listBox.set_margin_end(12);
 
-        const existing = new Set(settings.get_strv('auto-maximize-exceptions'));
+        const existing = new Set(settings.get_strv(key));
         const apps = Gio.AppInfo.get_all()
             .filter(a => a.should_show())
             .filter(a => !existing.has(a.get_id()));
@@ -194,7 +226,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
                 row.add_prefix(image);
             }
             row.connect('activated', () => {
-                this._addException(settings, app.get_id());
+                this._addException(settings, key, app.get_id());
                 dialog.close();
             });
             listBox.append(row);
@@ -214,7 +246,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         dialog.present(root);
     }
 
-    _openWmClassDialog(settings, parent) {
+    _openWmClassDialog(settings, key, parent) {
         const root = parent.get_root();
         const entry = new Gtk.Entry({
             placeholder_text: 'e.g. Calculator or org.example.App',
@@ -245,16 +277,16 @@ export default class TouchshellPreferences extends ExtensionPreferences {
             const value = entry.get_text().trim();
             if (!value)
                 return;
-            this._addException(settings, value);
+            this._addException(settings, key, value);
         });
 
         dialog.present(root);
     }
 
-    _addException(settings, id) {
-        const cur = settings.get_strv('auto-maximize-exceptions');
+    _addException(settings, key, id) {
+        const cur = settings.get_strv(key);
         if (!cur.includes(id))
-            settings.set_strv('auto-maximize-exceptions', [...cur, id]);
+            settings.set_strv(key, [...cur, id]);
     }
 
     _buildOverviewWorkspaceSwitchGroup(settings) {
@@ -488,10 +520,18 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 
     // AdwActionRow with an AdwToggleGroup suffix bound to a string-enum GSettings key.
     _buildActivationRow(settings, key, title) {
-        const row = new Adw.ActionRow({ title });
+        return this._buildEnumToggleRow(
+            settings, key, title, ACTIVATION_OPTIONS);
+    }
+
+    // Generic AdwActionRow + AdwToggleGroup bound to any string-enum GSettings key.
+    _buildEnumToggleRow(settings, key, title, options, subtitle = null) {
+        const row = subtitle
+            ? new Adw.ActionRow({ title, subtitle })
+            : new Adw.ActionRow({ title });
         const toggleGroup = new Adw.ToggleGroup({ valign: Gtk.Align.CENTER });
 
-        for (const opt of ACTIVATION_OPTIONS) {
+        for (const opt of options) {
             const t = new Adw.Toggle({ name: opt.name, label: opt.label });
             toggleGroup.add(t);
         }

@@ -243,5 +243,31 @@
       </description>
     </key>
 
+    <key name="action-bar-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'auto'</default>
+      <summary>When to show the bottom action bar</summary>
+      <description>
+        Controls a thin horizontal strip pinned to the bottom of the
+        primary monitor. A horizontal swipe inside the strip switches
+        workspaces with a 1:1 finger-tracked animation, including over
+        fullscreen apps where no other workspace-switch path is reachable.
+        "off" disables the bar. "auto" shows it only when the system
+        reports tablet mode. "always" shows it regardless of mode.
+      </description>
+    </key>
+
+    <key name="action-bar-exceptions" type="as">
+      <default>[]</default>
+      <summary>Apps the action bar should be hidden for</summary>
+      <description>
+        List of identifiers (desktop file IDs like
+        "org.gnome.Calculator.desktop", or raw WM_CLASS strings as a
+        fallback) for apps that should suppress the action bar entirely
+        when focused — useful for games, presentations, or anything
+        where an accidental swipe at the bottom edge would be costly.
+      </description>
+    </key>
+
   </schema>
 </schemalist>

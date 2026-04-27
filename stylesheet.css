@@ -1,1 +1,37 @@
-/* Touchshell styles — intentionally empty for now. */
+/* Touchshell styles. */
+
+/* Bottom action bar. The actor is purely visual (vfunc_pick is empty);
+   the touch zone is enforced by the gesture's should-handle-sequence
+   gate, not by this style. The bar always reserves 22 logical px of
+   work area at the bottom of the primary monitor; whether it draws
+   anything is controlled by the JS-managed --filled class.
+
+   --filled: a window is touching the top of the bar, so we paint with
+     the theme background colour (so it reads as part of the window's
+     surrounding chrome rather than exposing the desktop colour).
+   --theme-dark: switches the --filled background to the dark variant. */
+.touchshell-actionbar {
+    background-color: transparent;
+}
+
+.touchshell-actionbar.touchshell-actionbar--filled {
+    background-color: #fafafa;
+}
+
+.touchshell-actionbar.touchshell-actionbar--filled.touchshell-actionbar--theme-dark {
+    background-color: #1e1e1e;
+}
+
+/* Pill: small rounded indicator centered horizontally.
+   Default colour assumes a dark theme; the JS side flips the
+   --dark variant on when sampling against a light surface. */
+.touchshell-actionbar__pill {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.touchshell-actionbar__pill--dark {
+    background-color: rgba(0, 0, 0, 0.78);
+    box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.45);
+}

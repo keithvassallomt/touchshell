@@ -1,5 +1,6 @@
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
+import { ActionBar } from './lib/actionBar.js';
 import { AutoMaximizeWindows } from './lib/autoMaximizeWindows.js';
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
 import { DesktopWorkspaceSwipeGesture } from './lib/desktopWorkspaceSwipeGesture.js';
@@ -69,9 +70,12 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
+        this._actionBar = new ActionBar(this._settings, this._tabletMode);
     }
 
     disable() {
+        this._actionBar?.destroy();
+        this._actionBar = null;
         this._textAction?.destroy();
         this._textAction = null;
         this._swipeDismissNotifs?.destroy();
