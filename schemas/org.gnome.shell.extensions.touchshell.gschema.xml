@@ -144,6 +144,21 @@
       </description>
     </key>
 
+    <key name="desktop-vertical-swipe-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable single-finger vertical swipe on the desktop to open the overview</summary>
+      <description>
+        Controls whether a single-finger upward swipe on the desktop opens
+        the Activities overview, with the same 1:1 finger-tracked animation
+        as the bottom-edge swipe. The gesture is recognized on any visible
+        patch of desktop background. "off" disables it entirely. "auto"
+        enables it only when the system reports tablet mode. "always"
+        enables it regardless of mode. The further step from overview to
+        the app grid is handled by the in-overview vertical swipe.
+      </description>
+    </key>
+
     <key name="auto-maximize-windows-activation"
          enum="org.gnome.shell.extensions.touchshell.activation">
       <default>'auto'</default>

@@ -29,6 +29,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         page.add(this._buildTextActionFabGroup(settings));
         page.add(this._buildOverviewWorkspaceSwitchGroup(settings));
         page.add(this._buildDesktopWorkspaceSwipeGroup(settings));
+        page.add(this._buildDesktopVerticalSwipeGroup(settings));
         page.add(this._buildOverviewVerticalSwipeGroup(settings));
         page.add(this._buildFullscreenAppsGroup(settings));
         page.add(this._buildPanelAutoHideGroup(settings));
@@ -338,6 +339,26 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         group.add(this._buildActivationRow(
             settings,
             'desktop-workspace-switch-activation',
+            'Activation'
+        ));
+
+        return group;
+    }
+
+    _buildDesktopVerticalSwipeGroup(settings) {
+        const group = new Adw.PreferencesGroup({
+            title: 'Desktop swipe up → Overview',
+            description:
+                'Single-finger upward swipe on a visible patch of desktop ' +
+                'background opens the Activities overview. Same 1:1 feel ' +
+                'as the bottom-edge swipe, reachable from anywhere on the ' +
+                'desktop. Sensitivity follows the swipe-distance setting ' +
+                'in the bottom-edge group.',
+        });
+
+        group.add(this._buildActivationRow(
+            settings,
+            'desktop-vertical-swipe-activation',
             'Activation'
         ));
 
