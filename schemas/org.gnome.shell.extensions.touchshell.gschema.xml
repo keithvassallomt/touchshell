@@ -173,14 +173,15 @@
       </description>
     </key>
 
-    <key name="auto-maximize-prompted-apps" type="as">
-      <default>[]</default>
-      <summary>Apps already prompted with the auto-maximize opt-out notification</summary>
+    <key name="auto-maximize-reminder-count" type="i">
+      <default>0</default>
+      <summary>Number of "you can set exceptions" reminders shown</summary>
       <description>
-        Tracks which apps have already shown the one-shot "Don't
-        auto-maximize this app" notification. Once an app is in this
-        list it never prompts again, regardless of whether the user
-        acted on the notification.
+        Counts how many times the lightweight "Remember: you can set
+        exceptions for fullscreen apps in settings" notification has
+        been shown. Capped at 2: after that, no further reminders
+        fire. The counter is global across all apps and persists
+        across enable/disable cycles.
       </description>
     </key>
 
@@ -219,7 +220,7 @@
         When enabled (default), a translucent FAB is always visible
         in the corner of the primary monitor; tap it to open the
         Cut / Copy / Paste / Select All bar. When disabled, the FAB
-        is hidden and a two-finger tap anywhere on the screen
+        is hidden and a three-finger tap anywhere on the screen
         summons the bar directly.
       </description>
     </key>
@@ -239,19 +240,6 @@
       <description>
         Last Y coordinate (stage pixels) the user dragged the FAB to.
         -1 means use the default bottom-right corner position.
-      </description>
-    </key>
-
-    <key name="auto-maximize-show-optout-notification" type="b">
-      <default>true</default>
-      <summary>Show the auto-maximize opt-out notification</summary>
-      <description>
-        When enabled (default), the first time an app is auto-maximized
-        a transient notification offers a one-tap opt-out. Disable this
-        if you find the prompts intrusive — exceptions can still be
-        managed via the prefs list. Resetting the notification history
-        re-enables prompts for previously-dismissed apps but only if
-        this master toggle is on.
       </description>
     </key>
 

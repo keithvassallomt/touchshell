@@ -52,33 +52,6 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 
         group.add(this._buildExceptionsExpander(settings));
 
-        const notifSwitch = new Adw.SwitchRow({
-            title: 'Show opt-out notification',
-            subtitle:
-                'When a new app is maximized for the first time, offer a one-tap exception.',
-        });
-        settings.bind(
-            'auto-maximize-show-optout-notification',
-            notifSwitch,
-            'active',
-            Gio.SettingsBindFlags.DEFAULT
-        );
-        group.add(notifSwitch);
-
-        const resetRow = new Adw.ActionRow({
-            title: 'Reset notification history',
-            subtitle: 'Previously-dismissed apps will prompt again.',
-        });
-        const resetButton = new Gtk.Button({
-            label: 'Reset',
-            valign: Gtk.Align.CENTER,
-        });
-        resetButton.connect('clicked', () => {
-            settings.set_strv('auto-maximize-prompted-apps', []);
-        });
-        resetRow.add_suffix(resetButton);
-        group.add(resetRow);
-
         return group;
     }
 
@@ -282,13 +255,6 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         const cur = settings.get_strv('auto-maximize-exceptions');
         if (!cur.includes(id))
             settings.set_strv('auto-maximize-exceptions', [...cur, id]);
-        // Manually-added apps are implicitly "known" — no point
-        // prompting later.
-        const prompted = settings.get_strv('auto-maximize-prompted-apps');
-        if (!prompted.includes(id)) {
-            settings.set_strv(
-                'auto-maximize-prompted-apps', [...prompted, id]);
-        }
     }
 
     _buildOverviewWorkspaceSwitchGroup(settings) {
@@ -352,7 +318,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
                 'the focused app — there is no selection management on our ' +
                 'side. By default a translucent FAB sits in the bottom-right ' +
                 'corner; tap it to open the bar. If you turn the FAB off, ' +
-                'tap with two fingers anywhere to summon the bar instead.',
+                'tap with three fingers anywhere to summon the bar instead.',
         });
 
         group.add(this._buildActivationRow(
@@ -364,7 +330,7 @@ export default class TouchshellPreferences extends ExtensionPreferences {
         const showRow = new Adw.SwitchRow({
             title: 'Always show the FAB',
             subtitle:
-                'When off, hide the FAB and use a two-finger tap anywhere ' +
+                'When off, hide the FAB and use a three-finger tap anywhere ' +
                 'to summon the action bar.',
         });
         settings.bind(

@@ -3,6 +3,7 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import { AutoMaximizeWindows } from './lib/autoMaximizeWindows.js';
 import { BottomEdgeSwipeGesture } from './lib/bottomEdgeSwipeGesture.js';
 import { DesktopWorkspaceSwipeGesture } from './lib/desktopWorkspaceSwipeGesture.js';
+import { DisableUnredirect } from './lib/disableUnredirect.js';
 import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
 import { OverviewVerticalSwipeGesture } from './lib/overviewVerticalSwipeGesture.js';
 import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGesture.js';
@@ -19,6 +20,7 @@ export default class TouchshellExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
         this._tabletMode = new TabletModeMonitor();
+        this._disableUnredirect = new DisableUnredirect();
         this._panelAutoHide = new PanelAutoHide(this._settings, this._tabletMode);
         this._topRightSwipe = new TopRightSwipeGesture(
             this._settings,
@@ -96,6 +98,8 @@ export default class TouchshellExtension extends Extension {
         this._topRightSwipe = null;
         this._panelAutoHide?.destroy();
         this._panelAutoHide = null;
+        this._disableUnredirect?.destroy();
+        this._disableUnredirect = null;
         this._tabletMode?.destroy();
         this._tabletMode = null;
         this._settings = null;
