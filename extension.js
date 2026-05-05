@@ -17,6 +17,7 @@ import { TextActionController } from './lib/textActionController.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
 import { TwoFingerUnmaximize } from './lib/twoFingerUnmaximize.js';
+import { WindowSizeNormalizer } from './lib/windowSizeNormalizer.js';
 
 export default class TouchshellExtension extends Extension {
     enable() {
@@ -76,9 +77,12 @@ export default class TouchshellExtension extends Extension {
             this._tabletMode
         );
         this._actionBar = new ActionBar(this._settings, this._tabletMode);
+        this._sizeNormalizer = new WindowSizeNormalizer();
     }
 
     disable() {
+        this._sizeNormalizer?.destroy();
+        this._sizeNormalizer = null;
         this._actionBar?.destroy();
         this._actionBar = null;
         this._textAction?.destroy();
