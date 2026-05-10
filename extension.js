@@ -12,7 +12,7 @@ import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGes
 import { PanelAutoHide } from './lib/panelAutoHide.js';
 import { SwipeToDismissNotifications } from './lib/swipeToDismissNotifications.js';
 import { TabletModeMonitor } from './lib/tabletMode.js';
-import { TabletModeQuickToggle } from './lib/tabletModeQuickToggle.js';
+import { TouchshellQuickSettings } from './lib/quickSettingsMenu.js';
 import { TextActionController } from './lib/textActionController.js';
 import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
@@ -67,7 +67,7 @@ export default class TouchshellExtension extends Extension {
             this._settings,
             this._tabletMode
         );
-        this._tabletQuickToggle = new TabletModeQuickToggle(this._settings);
+        this._quickSettings = new TouchshellQuickSettings(this);
         this._swipeDismissNotifs = new SwipeToDismissNotifications(
             this._settings,
             this._tabletMode
@@ -89,8 +89,8 @@ export default class TouchshellExtension extends Extension {
         this._textAction = null;
         this._swipeDismissNotifs?.destroy();
         this._swipeDismissNotifs = null;
-        this._tabletQuickToggle?.destroy();
-        this._tabletQuickToggle = null;
+        this._quickSettings?.destroy();
+        this._quickSettings = null;
         this._unmaxSwipe?.destroy();
         this._unmaxSwipe = null;
         this._autoMaximize?.destroy();

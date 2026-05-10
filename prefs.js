@@ -11,14 +11,14 @@ import { build as buildWorkspacesPage } from './lib/prefs/workspacesPage.js';
 
 const STYLE = `
 .touchshell-demo {
-    border-radius: 8px;
+    border-radius: 10px;
     background-color: alpha(@accent_color, 0.08);
     box-shadow: 0 1px 2px alpha(black, 0.12);
     margin: 6px 0;
-    padding: 0;
+    padding: 8px;
 }
 .touchshell-demo picture {
-    border-radius: 8px;
+    border-radius: 4px;
 }
 .touchshell-demo-placeholder {
     color: alpha(@window_fg_color, 0.5);
@@ -39,15 +39,15 @@ let _styleProviderInstalled = false;
 export default class TouchshellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         _ensureStyleProvider();
+        _ensureIconTheme(this.path);
 
         const settings = this.getSettings();
-        const path = this.path;
 
-        window.add(buildEdgesPage(settings, path));
-        window.add(buildWorkspacesPage(settings, path));
-        window.add(buildOverviewPage(settings, path));
-        window.add(buildWindowsPage(settings, path));
-        window.add(buildTouchHelpersPage(settings, path));
+        window.add(buildEdgesPage(settings));
+        window.add(buildWorkspacesPage(settings));
+        window.add(buildOverviewPage(settings));
+        window.add(buildWindowsPage(settings));
+        window.add(buildTouchHelpersPage(settings));
     }
 }
 
@@ -55,6 +55,22 @@ export default class TouchshellPreferences extends ExtensionPreferences {
 // twice would stack styles; we guard with a module-level flag. The
 // provider is added to the default display, so every prefs window
 // opened from the same shell session sees it.
+// Register our bundled hicolor icon dir so AdwPreferencesPage's
+// icon-name property can resolve `touchshell-symbolic`. add_search_path
+// is idempotent — Gtk dedupes the entry — but we still gate on a
+// module flag to avoid the lookup on every prefs open.
+let _iconThemeRegistered = false;
+function _ensureIconTheme(extensionPath) {
+    if (_iconThemeRegistered)
+        return;
+    const display = Gdk.Display.get_default();
+    if (!display)
+        return;
+    const theme = Gtk.IconTheme.get_for_display(display);
+    theme.add_search_path(`${extensionPath}/assets/icons`);
+    _iconThemeRegistered = true;
+}
+
 function _ensureStyleProvider() {
     if (_styleProviderInstalled)
         return;
