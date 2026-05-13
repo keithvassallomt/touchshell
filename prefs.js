@@ -10,6 +10,9 @@ import { build as buildWindowsPage } from './lib/prefs/windowsPage.js';
 import { build as buildWorkspacesPage } from './lib/prefs/workspacesPage.js';
 
 const STYLE = `
+.touchshell-page-header > label.body {
+    font-weight: 500;
+}
 .touchshell-demo {
     border-radius: 10px;
     background-color: alpha(@accent_color, 0.08);
