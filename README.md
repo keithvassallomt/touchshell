@@ -102,7 +102,7 @@ Some features default to **Auto** (panel auto-hide, fullscreen apps, text-action
 
 #### Bottom edge → Overview
 
-<video src="demos/bottom-edge.webm" controls width="720"></video>
+[bottom-edge.webm](https://github.com/user-attachments/assets/bb429f82-78d0-4574-bb98-21351d096f83)
 
 Swipe up from the very bottom edge of the screen to open the Activities overview. The animation is 1:1 finger-tracked — pull part-way and let go to cancel.
 
@@ -112,7 +112,7 @@ Swipe up from the very bottom edge of the screen to open the Activities overview
 
 #### Top-right → Quick Settings
 
-<video src="demos/top-right.webm" controls width="720"></video>
+[top-right.webm](https://github.com/user-attachments/assets/d87cb8b3-42a0-429d-a940-c124145850da)
 
 Swipe down from the top-right corner of the screen to open Quick Settings. Works over fullscreen apps too — the panel is unhidden for the duration of the menu so the popover anchors under the indicator instead of the top-left.
 
@@ -122,7 +122,7 @@ Swipe down from the top-right corner of the screen to open Quick Settings. Works
 
 #### Top-center → Notifications
 
-<video src="demos/top-center.webm" controls width="720"></video>
+[top-center.webm](https://github.com/user-attachments/assets/a2291473-00f9-436b-988f-c6604dddeb9c)
 
 Swipe down from the top-center to open the date menu (notifications and calendar).
 
@@ -138,7 +138,7 @@ Swipe down from the top-center to open the date menu (notifications and calendar
 
 #### Desktop horizontal swipe
 
-<video src="demos/desktop-workspace.webm" controls width="720"></video>
+[desktop-workspace.webm](https://github.com/user-attachments/assets/1bad77c6-4a88-436a-83db-4504ec433ae1)
 
 Single-finger horizontal swipe on any visible patch of the desktop background switches workspaces with 1:1 tracking. RTL locales flip direction automatically.
 
@@ -147,7 +147,7 @@ Single-finger horizontal swipe on any visible patch of the desktop background sw
 
 #### In-overview horizontal swipe
 
-<video src="demos/overview-workspace.webm" controls width="720"></video>
+[overview-workspace.webm](https://github.com/user-attachments/assets/9f022be2-4f37-4342-bc05-b02368c00a02)
 
 Single-finger horizontal swipe over the overview background switches workspaces, tracking the finger 1:1 like the native four-finger touchpad swipe.
 
@@ -156,7 +156,7 @@ Single-finger horizontal swipe over the overview background switches workspaces,
 
 #### Bottom action bar
 
-<video src="demos/action-bar.webm" controls width="720"></video>
+[action-bar.webm](https://github.com/user-attachments/assets/cee2e7c8-3d61-4aed-a0b2-676f5f71155c)
 
 A thin horizontal strip pinned to the bottom of the primary monitor. A horizontal swipe inside the strip switches workspaces, even over fullscreen apps where no other workspace-switch path is reachable. Taps pass through to the app underneath.
 
@@ -173,7 +173,7 @@ A thin horizontal strip pinned to the bottom of the primary monitor. A horizonta
 
 #### Desktop swipe up → Overview
 
-<video src="demos/desktop-vertical.webm" controls width="720"></video>
+[desktop-vertical.webm](https://github.com/user-attachments/assets/fc70e4ed-fe45-4e62-8d5c-b0f003b49518)
 
 Single-finger upward swipe on the desktop background opens the overview, with the same 1:1 finger-tracked animation as the bottom-edge swipe. Sensitivity follows the Edges-page **Swipe distance**.
 
@@ -182,7 +182,7 @@ Single-finger upward swipe on the desktop background opens the overview, with th
 
 #### In-overview vertical swipe
 
-<video src="demos/overview-vertical.webm" controls width="720"></video>
+[overview-vertical.webm](https://github.com/user-attachments/assets/cdcb8b95-ba9f-4350-aa13-88b8a5310c22)
 
 Swipe up over the overview to reveal the app grid; swipe down to return to the windows view (or to the desktop).
 
@@ -191,7 +191,7 @@ Swipe up over the overview to reveal the app grid; swipe down to return to the w
 
 #### Flick to close
 
-<video src="demos/flick-to-close.webm" controls width="720"></video>
+[flick-to-close.webm](https://github.com/user-attachments/assets/29c585d4-ae1d-49b9-a2e7-b143fd890633)
 
 Flick a window thumbnail upward in the overview to close that window.
 
@@ -206,7 +206,7 @@ Flick a window thumbnail upward in the overview to close that window.
 
 #### Fullscreen Apps mode
 
-<video src="demos/fullscreen-apps.webm" controls width="720"></video>
+[fullscreen-apps.webm](https://github.com/user-attachments/assets/61e10dd2-e268-4159-80c3-4d741fb06e22)
 
 Open new windows maximized by default (dialogs, popups, and child windows are excluded). A two-finger downward swipe inside a maximized window restores it — that's the escape hatch. The Quick Settings tile flips between **Off** and **Always**; **Auto** can only be set here.
 
@@ -216,7 +216,7 @@ Open new windows maximized by default (dialogs, popups, and child windows are ex
 
 #### Top panel auto-hide
 
-<video src="demos/panel-auto-hide.webm" controls width="720"></video>
+[panel-auto-hide.webm](https://github.com/user-attachments/assets/8b836e54-68af-44a2-af8f-b2d09530578c)
 
 Hides the top panel when a window is maximized. Reveals on top-edge proximity, during panel menu interactions, and stays visible while you use the menu.
 
@@ -231,7 +231,7 @@ Hides the top panel when a window is maximized. Reveals on top-edge proximity, d
 
 #### Swipe to dismiss notifications
 
-<video src="demos/notif-dismiss.webm" controls width="720"></video>
+[notif-dismiss.webm](https://github.com/user-attachments/assets/4ed8f661-dde3-4ff1-905f-a254bbc34dfe)
 
 Two gestures, one toggle:
 - Swipe **up** on a visible notification banner to dismiss it.
@@ -242,7 +242,7 @@ Two gestures, one toggle:
 
 #### Touch text-action FAB
 
-<video src="demos/text-action-fab.webm" controls width="720"></video>
+[text-action-fab.webm](https://github.com/user-attachments/assets/4e335f8c-6e24-4fa6-9bcf-b14a7d488f13)
 
 A floating action button that expands into a **Cut / Copy / Paste / Select All / Keyboard** bar. The action buttons synthesise `Ctrl+X`, `Ctrl+C`, `Ctrl+V`, `Ctrl+A` to the focused app, so it works wherever those shortcuts work — including GTK4 apps where touch text selection is otherwise unusable. The Keyboard item force-summons the on-screen keyboard.
 
