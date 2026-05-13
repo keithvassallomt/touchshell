@@ -1,49 +1,280 @@
-# touchshell
+# Touchshell
 
-A GNOME Shell extension that makes GNOME feel more like iPadOS on touchscreen devices.
+<p align="center">
+  <img src="assets/touchshell.svg" alt="Touchshell Logo" width="128" />
+</p>
 
-## Core Features
+A GNOME Shell extension that makes GNOME feel more natural on touchscreen devices.
 
-- **Edge gestures** — swipe up from the bottom for the Activities overview, down from the top-right for Quick Settings, down from the top-center for Notifications.
-- **Single-finger workspace switching** — horizontal swipe on the desktop background, or on a thin bottom action bar that stays reachable even over fullscreen apps.
-- **Single-finger overview navigation** — swipe up from anywhere on the desktop to open the overview; swipe vertically inside it to flip between Windows view and the App Grid.
-- **Touch text actions** — a draggable Cut / Copy / Paste / Select All bar for touch users, summoned by a corner FAB or a three-finger tap.
-- **Fullscreen Apps mode** — new windows open maximized by default; per-app exceptions; two-finger swipe down to escape.
-- **Auto-hiding top panel** — hides when a window is maximized; reveals on top-edge proximity or a top-right swipe.
-- **Flick to close, swipe to dismiss** — flick a window thumbnail upward in the overview to close it; swipe a notification banner up or a list entry left to dismiss it.
-- **Tablet-mode aware** — every gesture can be set Off / Auto / Always (Auto = active only in tablet mode).
+Touchshell adds the gestures, affordances, and chrome that GNOME assumes you have a trackpad and keyboard for — single-finger workspace switching, edge swipes for the system surfaces, a touch text-action bar, a Fullscreen Apps mode that opens windows maximized, an auto-hiding top panel, and a thin bottom action bar that stays reachable even over fullscreen apps.
 
-## Acknowledgements
+- **Supported GNOME versions:** 49, 50
+- **Session:** Wayland (Xorg is not supported)
+- **UUID:** `touchshell@touchshell.com`
+- **License:** GPL-2.0-or-later
 
-Like any open-source project, TouchShell stands on the shoulders of giants. Mainly:
+> [!NOTE]
+> <img width="200" height="auto" alt="friendly-manifesto-badge" src="https://github.com/user-attachments/assets/cb91210b-0f66-46fe-93a8-a3a67857593c" /> <br>
+> This project voluntarily adheres to The Friendly Manifesto. Read more [here](https://friendlymanifesto.org)
 
-- [TouchUp](https://github.com/mityax/gnome-extension-touchup). Main source of inspiration for this extension and the O.G. touch extension for GNOME.
-- [Disable Unredirect](https://github.com/kazysmaster/gnome-shell-extension-disable-unredirect). Disables some questionable defaults for how GNOME handles full-screen apps. Simple, but a gem.
-- [Hide Top Bar](https://gitlab.gnome.org/tuxor1337/hidetopbar). Hides the GNOME top bar - done right.
+---
 
-## Status
+## Table of contents
 
-Active development.
+- [Installation](#installation)
+- [Activation modes](#activation-modes-off--auto--always)
+- [Features](#features)
+  - [Edges](#edges)
+  - [Workspaces](#workspaces)
+  - [Overview](#overview)
+  - [Windows](#windows)
+  - [Touch helpers](#touch-helpers)
+- [Development](#development)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
+- [License](#license)
 
-## Supported GNOME versions
+---
 
-- GNOME 49
-- GNOME 50
+## Installation
+
+### From extensions.gnome.org (recommended)
+
+[<img alt="Get it on GNOME Extensions" height="100" src="assets/get-it-on-ego.svg?sanitize=true">](https://extensions.gnome.org/extension/9164/status-tray/)
+
+> Touchshell uses gestures that only work on a Wayland session. If you're on Xorg, switch sessions from the login screen first.
+
+### Manual install (from this repo)
+
+```bash
+git clone https://github.com/keithvassallomt/touchshell.git
+cd touchshell
+
+# Build the extension zip
+./scripts/pack.sh
+
+# Install it for the current user
+gnome-extensions install --force dist/touchshell@touchshell.com.shell-extension.zip
+
+# Log out and back in (X11 users: log out; Wayland: log out — see "Reloading" below)
+gnome-extensions enable touchshell@touchshell.com
+```
+
+### Live development install (symlink)
+
+If you're hacking on Touchshell, point GNOME at the repo directly:
+
+```bash
+ln -s "$(pwd)" ~/.local/share/gnome-shell/extensions/touchshell@touchshell.com
+```
+
+Then compile the gsettings schema in place:
+
+```bash
+glib-compile-schemas schemas/
+```
+
+### Reloading after a code change
+
+Touchshell is an ESM extension, and GNOME's `disable → enable` cycle **does not** re-evaluate ESM module bodies. To pick up a code change on Wayland you must **log out and log back in** (or restart the shell with `Alt+F2 → r` on Xorg, which Touchshell doesn't support but the principle is the same).
+
+---
+
+## Activation modes (Off / Auto / Always)
+
+Almost every feature in Touchshell has a three-way activation toggle:
+
+| Mode | Behavior |
+| --- | --- |
+| **Off** | The feature is disabled entirely. |
+| **Auto** | The feature is active only when the system reports tablet mode (e.g. a convertible folded into tablet posture). |
+| **Always** | The feature is active regardless of mode. |
+
+Some features default to **Auto** (panel auto-hide, fullscreen apps, text-action FAB) and some to **Always** (most gestures). You can change every default from the preferences window.
+
+---
+
+## Features
+
+### Edges
+
+> Gestures that start at the very edge of the screen and reveal a system surface — Activities, Quick Settings, or Notifications.
+
+#### Bottom edge → Overview
+
+<video src="demos/bottom-edge.webm" controls width="720"></video>
+
+Swipe up from the very bottom edge of the screen to open the Activities overview. The animation is 1:1 finger-tracked — pull part-way and let go to cancel.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+- **Swipe distance** — percentage of screen height needed to commit one overview state change. Lower = snappier. This setting is shared with the vertical swipes inside the overview and with the desktop swipe-up. Range 30–100, default 60.
+
+#### Top-right → Quick Settings
+
+<video src="demos/top-right.webm" controls width="720"></video>
+
+Swipe down from the top-right corner of the screen to open Quick Settings. Works over fullscreen apps too — the panel is unhidden for the duration of the menu so the popover anchors under the indicator instead of the top-left.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+- **Trigger zone width** — percentage of screen width, measured from the right edge, that counts as the trigger zone. Range 5–50, default 33.
+
+#### Top-center → Notifications
+
+<video src="demos/top-center.webm" controls width="720"></video>
+
+Swipe down from the top-center to open the date menu (notifications and calendar).
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+- **Trigger zone width** — percentage of screen width, centered horizontally. Range 10–60, default 30.
+
+---
+
+### Workspaces
+
+> Single-finger ways to move between workspaces — on the desktop, in the overview, and over fullscreen apps.
+
+#### Desktop horizontal swipe
+
+<video src="demos/desktop-workspace.webm" controls width="720"></video>
+
+Single-finger horizontal swipe on any visible patch of the desktop background switches workspaces with 1:1 tracking. RTL locales flip direction automatically.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+#### In-overview horizontal swipe
+
+<video src="demos/overview-workspace.webm" controls width="720"></video>
+
+Single-finger horizontal swipe over the overview background switches workspaces, tracking the finger 1:1 like the native four-finger touchpad swipe.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+#### Bottom action bar
+
+<video src="demos/action-bar.webm" controls width="720"></video>
+
+A thin horizontal strip pinned to the bottom of the primary monitor. A horizontal swipe inside the strip switches workspaces, even over fullscreen apps where no other workspace-switch path is reachable. Taps pass through to the app underneath.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Auto**).
+- **Swipe distance** — percentage of screen width needed to commit one workspace switch. Lower = snappier. Range 30–100, default 62.
+- **Hide the bar for** — a per-app exception list. Add desktop file IDs (e.g. `org.gnome.Calculator.desktop`) or raw WM_CLASS strings. Useful for games, presentations, or anything where an accidental edge swipe would be costly.
+
+---
+
+### Overview
+
+> Gestures for opening the Activities overview and moving between its states (Windows view ↔ App Grid).
+
+#### Desktop swipe up → Overview
+
+<video src="demos/desktop-vertical.webm" controls width="720"></video>
+
+Single-finger upward swipe on the desktop background opens the overview, with the same 1:1 finger-tracked animation as the bottom-edge swipe. Sensitivity follows the Edges-page **Swipe distance**.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+#### In-overview vertical swipe
+
+<video src="demos/overview-vertical.webm" controls width="720"></video>
+
+Swipe up over the overview to reveal the app grid; swipe down to return to the windows view (or to the desktop).
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+#### Flick to close
+
+<video src="demos/flick-to-close.webm" controls width="720"></video>
+
+Flick a window thumbnail upward in the overview to close that window.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+---
+
+### Windows
+
+> How windows open and how the top panel behaves around them.
+
+#### Fullscreen Apps mode
+
+<video src="demos/fullscreen-apps.webm" controls width="720"></video>
+
+Open new windows maximized by default (dialogs, popups, and child windows are excluded). A two-finger downward swipe inside a maximized window restores it — that's the escape hatch. The Quick Settings tile flips between **Off** and **Always**; **Auto** can only be set here.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Auto**).
+- **Excluded apps** — apps that should open at their default size instead of maximized. Add desktop file IDs or WM_CLASS strings.
+
+#### Top panel auto-hide
+
+<video src="demos/panel-auto-hide.webm" controls width="720"></video>
+
+Hides the top panel when a window is maximized. Reveals on top-edge proximity, during panel menu interactions, and stays visible while you use the menu.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Auto**).
+
+---
+
+### Touch helpers
+
+> Touch-specific affordances that make GNOME usable without a pointer or keyboard.
+
+#### Swipe to dismiss notifications
+
+<video src="demos/notif-dismiss.webm" controls width="720"></video>
+
+Two gestures, one toggle:
+- Swipe **up** on a visible notification banner to dismiss it.
+- Swipe **left** on a notification in the date-menu list to dismiss it.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
+#### Touch text-action FAB
+
+<video src="demos/text-action-fab.webm" controls width="720"></video>
+
+A floating action button that expands into a **Cut / Copy / Paste / Select All / Keyboard** bar. The action buttons synthesise `Ctrl+X`, `Ctrl+C`, `Ctrl+V`, `Ctrl+A` to the focused app, so it works wherever those shortcuts work — including GTK4 apps where touch text selection is otherwise unusable. The Keyboard item force-summons the on-screen keyboard.
+
+You can drag the FAB anywhere on the primary monitor; its position is persisted. If you turn off **Always show the FAB**, you can summon the action bar with a three-finger tap anywhere on the screen instead.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Auto**).
+- **Always show the FAB** — when on (default), a translucent FAB lives in the corner; when off, only the three-finger tap summons the bar.
+
+---
 
 ## Development
 
-The repo is set up to run as a live, in-place extension via a symlink:
+### Repo layout
 
 ```
-~/.local/share/gnome-shell/extensions/touchshell@touchshell.com
-    -> /path/to/this/repo
+extension.js         # entry point — wires the modules under lib/
+prefs.js             # AdwPreferencesWindow shell; per-page builders under lib/prefs/
+lib/                 # feature modules (one file per gesture / chrome / helper)
+lib/prefs/           # per-page UI builders + shared widgets / demo media
+schemas/             # gsettings schema XML
+assets/icons/        # hicolor symbolic icons
+demos/               # webm clips embedded in the README and prefs window
+scripts/pack.sh      # build the EGO-ready zip
+scripts/lint.sh      # run shexli against the zip
 ```
 
 ### Static analysis (shexli)
 
 Every change must pass the GNOME extensions static analyser. One-time setup:
 
-```
+```bash
 python3 -m venv venv
 . venv/bin/activate
 pip install -U shexli
@@ -51,13 +282,55 @@ pip install -U shexli
 
 To lint the exact ZIP that would be submitted to EGO:
 
-```
+```bash
 ./scripts/lint.sh
 ```
 
-That script builds `dist/touchshell@touchshell.com.shell-extension.zip` via
-`gnome-extensions pack` and runs `shexli` against it.
+That script builds `dist/touchshell@touchshell.com.shell-extension.zip` via `gnome-extensions pack` and runs `shexli` against it. Output should end with `shexli: clean` before you push or open a PR.
+
+### Editing the schema
+
+After changing `schemas/org.gnome.shell.extensions.touchshell.gschema.xml`:
+
+```bash
+glib-compile-schemas schemas/
+```
+
+### Reloading
+
+ESM module bodies are not re-evaluated by `gnome-extensions disable && enable`. After a code change, **log out and log back in** to pick it up. (Xorg sessions can do `Alt+F2 → r`, but Touchshell targets Wayland.)
+
+---
+
+## Contributing
+
+Contributions are welcome. A few ground rules:
+
+1. **Lint clean.** `./scripts/lint.sh` must report `shexli: clean` before opening a PR.
+2. **One feature per PR.** Easier to review, easier to revert if something regresses.
+3. **No new top-level deps.** Touchshell stays as a vanilla ESM GNOME extension — no npm, no bundlers, no transpilation.
+4. **Touch-test it.** If you're adding or changing a gesture, test on an actual touchscreen (or a touchscreen-emulator). Trackpad-only testing has historically missed bugs that only surface under real touch event routing.
+5. **Activation modes for new features.** If you add a feature, give it an activation gsetting (`off` / `auto` / `always`) and a Tablet-mode-aware default. Consistency matters.
+6. **Open an issue first** for anything bigger than a small fix — happy to talk through the approach before you spend time on it.
+
+Bug reports should include:
+- GNOME Shell version (`gnome-shell --version`)
+- Session type (Wayland — Touchshell does not support Xorg)
+- Hardware (touchscreen model / convertible chassis if relevant)
+- Steps to reproduce, and what you expected vs. what happened
+
+---
+
+## Acknowledgements
+
+Like any open-source project, Touchshell stands on the shoulders of giants. Mainly:
+
+- [TouchUp](https://github.com/mityax/gnome-extension-touchup) — main source of inspiration and the O.G. touch extension for GNOME.
+- [Disable Unredirect](https://github.com/kazysmaster/gnome-shell-extension-disable-unredirect) — disables some questionable defaults for how GNOME handles full-screen apps. Simple, but a gem.
+- [Hide Top Bar](https://gitlab.gnome.org/tuxor1337/hidetopbar) — hides the GNOME top bar, done right.
+
+---
 
 ## License
 
-GPL-2.0-or-later. See `LICENSE`.
+GPL-2.0-or-later. See [`LICENSE`](LICENSE).
