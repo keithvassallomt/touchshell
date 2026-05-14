@@ -1,9 +1,13 @@
 {
   "uuid": "touchshell@touchshell.com",
   "name": "Touchshell",
-  "description": "Makes GNOME feel more like iPadOS on touchscreen devices. Adds touch-friendly gestures and interactions.",
+  "description": "A GNOME Shell extension that makes GNOME a joy to use on tablets and touchscreens — gestures, fullscreen mode, typing tweaks and more.",
   "shell-version": ["49", "50"],
-  "url": "https://touchshell.com",
+  "url": "https://github.com/keithvassallomt/touchshell",
   "settings-schema": "org.gnome.shell.extensions.touchshell",
-  "gettext-domain": "touchshell"
+  "gettext-domain": "touchshell",
+  "version-name": "1.0",
+  "donations": {
+    "github": "keithvassallomt"
+  }
 }
