@@ -15,8 +15,6 @@ cd "$REPO"
 gnome-extensions pack \
     --force \
     --out-dir="$OUT" \
-    --extra-source=LICENSE \
-    --extra-source=README.md \
     --extra-source=lib \
     --extra-source=assets \
     .
