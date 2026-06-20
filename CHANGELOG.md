@@ -5,6 +5,12 @@ All notable changes to Touchshell are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- **Preferences freeze on machines without hardware video decode** — opening preferences built every page up front and started all bundled demo videos playing at once, so all ~13 streams decoded simultaneously and could pin the CPU and freeze the prefs window (reproducible on hardware with no VAAPI/v4l2 decoder, such as the Surface Pro 11). Demo playback is now gated on each card's `map`/`unmap`, so only the visible tab's demos decode. Thanks to [@ayifahmi](https://github.com/ayifahmi) ([#1](https://github.com/keithvassallomt/touchshell/pull/1)).
+
 ## [1.0] — 2026-05-14
 
 Initial public release. Supports GNOME Shell 49 and 50 on Wayland.
@@ -41,4 +47,5 @@ Initial public release. Supports GNOME Shell 49 and 50 on Wayland.
 
 - Every feature has a three-way activation toggle: **Off**, **Auto** (active only in tablet mode), or **Always** (active regardless of mode), with sensible per-feature defaults.
 
+[Unreleased]: https://github.com/keithvassallomt/touchshell/compare/v1.0...main
 [1.0]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.0
