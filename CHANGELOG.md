@@ -5,7 +5,7 @@ All notable changes to Touchshell are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.1] — 2026-06-20
 
 ### Fixed
 
@@ -47,5 +47,5 @@ Initial public release. Supports GNOME Shell 49 and 50 on Wayland.
 
 - Every feature has a three-way activation toggle: **Off**, **Auto** (active only in tablet mode), or **Always** (active regardless of mode), with sensible per-feature defaults.
 
-[Unreleased]: https://github.com/keithvassallomt/touchshell/compare/v1.0...main
+[1.1]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.1
 [1.0]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.0
