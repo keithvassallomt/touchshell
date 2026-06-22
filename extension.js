@@ -18,6 +18,7 @@ import { TopCenterSwipeGesture } from './lib/topCenterSwipeGesture.js';
 import { TopRightSwipeGesture } from './lib/topRightSwipeGesture.js';
 import { TwoFingerUnmaximize } from './lib/twoFingerUnmaximize.js';
 import { WindowSizeNormalizer } from './lib/windowSizeNormalizer.js';
+import { WindowTilingFlickGesture } from './lib/windowTilingFlickGesture.js';
 
 export default class TouchshellExtension extends Extension {
     enable() {
@@ -78,9 +79,15 @@ export default class TouchshellExtension extends Extension {
         );
         this._actionBar = new ActionBar(this._settings, this._tabletMode);
         this._sizeNormalizer = new WindowSizeNormalizer();
+        this._tilingFlick = new WindowTilingFlickGesture(
+            this._settings,
+            this._tabletMode
+        );
     }
 
     disable() {
+        this._tilingFlick?.destroy();
+        this._tilingFlick = null;
         this._sizeNormalizer?.destroy();
         this._sizeNormalizer = null;
         this._actionBar?.destroy();

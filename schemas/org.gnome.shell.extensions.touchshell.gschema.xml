@@ -311,5 +311,21 @@
       </description>
     </key>
 
+    <key name="window-tiling-flick-activation"
+         enum="org.gnome.shell.extensions.touchshell.activation">
+      <default>'always'</default>
+      <summary>When to enable flick-to-tile during a window drag</summary>
+      <description>
+        Controls whether a fast flick while dragging a window snaps it:
+        flick left or right tiles the window to that half of the screen,
+        flick up maximizes it, flick down minimizes it. Only touch drags
+        trigger it (mouse drags are left alone), and only a fast flick — a
+        normal slow drag-and-drop leaves the window where it lands. "off"
+        disables it
+        entirely. "auto" enables it only when the system reports tablet
+        mode. "always" enables it regardless of mode.
+      </description>
+    </key>
+
   </schema>
 </schemalist>
