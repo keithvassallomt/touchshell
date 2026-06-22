@@ -6,7 +6,7 @@
   "url": "https://github.com/keithvassallomt/touchshell",
   "settings-schema": "org.gnome.shell.extensions.touchshell",
   "gettext-domain": "touchshell",
-  "version-name": "1.1",
+  "version-name": "1.2",
   "donations": {
     "github": "keithvassallomt"
   }
