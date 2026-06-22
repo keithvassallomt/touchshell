@@ -214,6 +214,15 @@ Open new windows maximized by default (dialogs, popups, and child windows are ex
 - **Activation** — Off / Auto / Always (default: **Auto**).
 - **Excluded apps** — apps that should open at their default size instead of maximized. Add desktop file IDs or WM_CLASS strings.
 
+#### Flick to tile
+
+[window-tiling-flick.webm](https://github.com/user-attachments/assets/8f2361fd-e57a-40c9-82d4-60815a871f4e)
+
+While dragging a window **by touch**, a quick flick snaps it: flick **left** or **right** to tile it to that half of the screen, flick **up** to maximize, flick **down** to minimize. A slow drag-and-drop leaves the window where it lands, so it stays out of the way until you mean it. Touch only — mouse drags are unaffected. Left/right tiling reuses GNOME's native tiling, so it matches drag-to-edge tiling exactly.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
 #### Top panel auto-hide
 
 [panel-auto-hide.webm](https://github.com/user-attachments/assets/8b836e54-68af-44a2-af8f-b2d09530578c)

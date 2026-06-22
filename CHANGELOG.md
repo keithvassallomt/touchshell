@@ -5,6 +5,12 @@ All notable changes to Touchshell are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2] — 2026-06-22
+
+### Added
+
+- **Flick to tile** — while dragging a window by touch, a quick flick snaps it: flick left or right to tile it to that half of the screen, flick up to maximize, flick down to minimize. A slow drag-and-drop leaves the window where it lands, and mouse drags are unaffected. Off / Auto / Always, default Always, on the Windows page. Thanks to [@ayifahmi](https://github.com/ayifahmi) ([#2](https://github.com/keithvassallomt/touchshell/pull/2)).
+
 ## [1.1] — 2026-06-20
 
 ### Fixed
@@ -47,5 +53,6 @@ Initial public release. Supports GNOME Shell 49 and 50 on Wayland.
 
 - Every feature has a three-way activation toggle: **Off**, **Auto** (active only in tablet mode), or **Always** (active regardless of mode), with sensible per-feature defaults.
 
+[1.2]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.2
 [1.1]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.1
 [1.0]: https://github.com/keithvassallomt/touchshell/releases/tag/v1.0
