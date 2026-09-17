@@ -8,7 +8,7 @@ A GNOME Shell extension that makes GNOME feel more natural on touchscreen device
 
 Touchshell adds the gestures, affordances, and chrome that GNOME assumes you have a trackpad and keyboard for — single-finger workspace switching, edge swipes for the system surfaces, a touch text-action bar, a Fullscreen Apps mode that opens windows maximized, an auto-hiding top panel, and a thin bottom action bar that stays reachable even over fullscreen apps.
 
-- **Supported GNOME versions:** 49, 50
+- **Supported GNOME versions:** 49, 50, 51
 - **Session:** Wayland (Xorg is not supported)
 - **UUID:** `touchshell@touchshell.com`
 - **License:** GPL-2.0-or-later
