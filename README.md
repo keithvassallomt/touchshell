@@ -40,7 +40,7 @@ Touchshell adds the gestures, affordances, and chrome that GNOME assumes you hav
 
 ### From extensions.gnome.org (recommended)
 
-[<img alt="Get it on GNOME Extensions" height="100" src=".github/media/get-it-on-ego.svg?sanitize=true">](https://extensions.gnome.org/extension/9164/status-tray/)
+[<img alt="Get it on GNOME Extensions" height="100" src=".github/media/get-it-on-ego.svg?sanitize=true">](https://extensions.gnome.org/extension/9983/touchshell/)
 
 > Touchshell uses gestures that only work on a Wayland session. If you're on Xorg, switch sessions from the login screen first.
 
