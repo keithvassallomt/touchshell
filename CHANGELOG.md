@@ -5,6 +5,13 @@ All notable changes to Touchshell are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4] - 2026-11-13
+
+### Fixed
+
+- **Touchshell failed to start on GNOME Shell 51**: enabling the extension threw `TypeError: (intermediate value).get_default_backend is not a function`, because GNOME Shell 51 removed `Clutter.get_default_backend()`. The tablet-mode monitor now gets the input seat from the stage's context instead. Thanks to [@Blaqwood](https://github.com/Blaqwood) for the report ([#4](https://github.com/keithvassallomt/touchshell/issues/4)).
+- **Touch text-action FAB failed to enable on GNOME Shell 51**: turning the FAB on threw `No property vertical on Gjs_lib_textActionFab_ActionBar`, because GNOME Shell 51 removed the `vertical` property of `St.BoxLayout`. The FAB's bars now set `orientation` instead, which GNOME Shell has supported since 48.
+
 ## [1.3] — 2026-09-17
 
 ### Changed
