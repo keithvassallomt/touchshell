@@ -7,6 +7,7 @@ import { DesktopVerticalSwipeGesture } from './lib/desktopVerticalSwipeGesture.j
 import { DesktopWorkspaceSwipeGesture } from './lib/desktopWorkspaceSwipeGesture.js';
 import { DisableUnredirect } from './lib/disableUnredirect.js';
 import { FlickToCloseGesture } from './lib/flickToCloseGesture.js';
+import { LeftEdgeSwipeGesture } from './lib/leftEdgeSwipeGesture.js';
 import { OverviewVerticalSwipeGesture } from './lib/overviewVerticalSwipeGesture.js';
 import { OverviewWorkspaceSwitchGesture } from './lib/overviewWorkspaceSwitchGesture.js';
 import { PanelAutoHide } from './lib/panelAutoHide.js';
@@ -37,6 +38,10 @@ export default class TouchshellExtension extends Extension {
             this._panelAutoHide
         );
         this._bottomEdgeSwipe = new BottomEdgeSwipeGesture(
+            this._settings,
+            this._tabletMode
+        );
+        this._leftEdgeSwipe = new LeftEdgeSwipeGesture(
             this._settings,
             this._tabletMode
         );
@@ -112,6 +117,8 @@ export default class TouchshellExtension extends Extension {
         this._overviewWsSwitch = null;
         this._flickToClose?.destroy();
         this._flickToClose = null;
+        this._leftEdgeSwipe?.destroy();
+        this._leftEdgeSwipe = null;
         this._bottomEdgeSwipe?.destroy();
         this._bottomEdgeSwipe = null;
         this._topCenterSwipe?.destroy();

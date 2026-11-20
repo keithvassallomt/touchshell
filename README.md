@@ -130,6 +130,13 @@ Swipe down from the top-center to open the date menu (notifications and calendar
 - **Activation** — Off / Auto / Always (default: **Always**).
 - **Trigger zone width** — percentage of screen width, centered horizontally. Range 10–60, default 30.
 
+#### Left edge → Switch apps / Overview
+
+Swipe in from the left edge of the screen and release to switch to the next open application on the active workspace. Repeated swipes within two seconds cycle through all open applications in MRU order (like Windows Tablet Mode); swiping in and holding for 450 ms opens the Activities overview instead.
+
+**Options**
+- **Activation** — Off / Auto / Always (default: **Always**).
+
 ---
 
 ### Workspaces
