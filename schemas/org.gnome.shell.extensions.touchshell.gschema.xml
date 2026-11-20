@@ -59,15 +59,15 @@
 
     <key name="left-edge-swipe-activation"
          enum="org.gnome.shell.extensions.touchshell.activation">
-      <default>'always'</default>
-      <summary>When to enable the left-edge app switch gesture</summary>
+      <default>'auto'</default>
+      <summary>When to enable the left-edge window switch gesture</summary>
       <description>
-        Controls whether swiping in from the left edge of the screen cycles
-        through open applications on the active workspace (MRU order, with
-        repeated quick swipes stepping through the list), and whether swiping
-        in and holding opens the Activities overview. "off" disables it
-        entirely. "auto" enables it only when the system reports tablet mode.
-        "always" enables it regardless of mode.
+        Controls whether swiping in from the left edge of the screen switches
+        between the open windows on the active workspace (most recently used
+        first, with repeated quick swipes stepping through the list), and
+        whether swiping in and holding opens the Activities overview. "off"
+        disables it entirely. "auto" enables it only when the system reports
+        tablet mode. "always" enables it regardless of mode.
       </description>
     </key>
 

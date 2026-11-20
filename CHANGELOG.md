@@ -5,6 +5,12 @@ All notable changes to Touchshell are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Left-edge swipe to switch windows**: swipe in from the left edge of the screen to switch to the window you used before this one, and swipe again within two seconds to step through the rest of the open windows on the active workspace. Swipe in and hold to open the Activities overview. Off / Auto / Always, default Auto (tablet mode only), on the Edges page. Thanks to [@PuzzleFoco](https://github.com/PuzzleFoco) ([#6](https://github.com/keithvassallomt/touchshell/pull/6)).
+
 ## [1.4] - 2026-11-13
 
 ### Fixed

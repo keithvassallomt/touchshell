@@ -90,7 +90,7 @@ Almost every feature in Touchshell has a three-way activation toggle:
 | **Auto** | The feature is active only when the system reports tablet mode (e.g. a convertible folded into tablet posture). |
 | **Always** | The feature is active regardless of mode. |
 
-Some features default to **Auto** (panel auto-hide, fullscreen apps, text-action FAB) and some to **Always** (most gestures). You can change every default from the preferences window.
+Some features default to **Auto** (panel auto-hide, fullscreen apps, text-action FAB, left-edge window switching) and some to **Always** (most gestures). You can change every default from the preferences window.
 
 ---
 
@@ -98,7 +98,7 @@ Some features default to **Auto** (panel auto-hide, fullscreen apps, text-action
 
 ### Edges
 
-> Gestures that start at the very edge of the screen and reveal a system surface — Activities, Quick Settings, or Notifications.
+> Gestures that start at the very edge of the screen: reveal Activities, Quick Settings, or Notifications, or switch between open windows.
 
 #### Bottom edge → Overview
 
@@ -130,12 +130,12 @@ Swipe down from the top-center to open the date menu (notifications and calendar
 - **Activation** — Off / Auto / Always (default: **Always**).
 - **Trigger zone width** — percentage of screen width, centered horizontally. Range 10–60, default 30.
 
-#### Left edge → Switch apps / Overview
+#### Left edge → Switch windows / Overview
 
-Swipe in from the left edge of the screen and release to switch to the next open application on the active workspace. Repeated swipes within two seconds cycle through all open applications in MRU order (like Windows Tablet Mode); swiping in and holding for 450 ms opens the Activities overview instead.
+Swipe in from the left edge of the screen and release to switch to the window you used before this one. Swipe again within two seconds to keep stepping through the open windows on the active workspace, most recently used first (like Windows Tablet Mode). Swipe in and hold for about half a second to open the Activities overview instead.
 
 **Options**
-- **Activation** — Off / Auto / Always (default: **Always**).
+- **Activation**: Off / Auto / Always (default: **Auto**, so it's only active in tablet mode).
 
 ---
 
