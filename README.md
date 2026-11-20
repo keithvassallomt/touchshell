@@ -132,6 +132,8 @@ Swipe down from the top-center to open the date menu (notifications and calendar
 
 #### Left edge → Switch windows / Overview
 
+[left-edge.webm](https://github.com/user-attachments/assets/d0b3c7a9-c34e-4180-9e97-7f98e048496d)
+
 Swipe in from the left edge of the screen and release to switch to the window you used before this one. Swipe again within two seconds to keep stepping through the open windows on the active workspace, most recently used first (like Windows Tablet Mode). Swipe in and hold for about half a second to open the Activities overview instead.
 
 **Options**
